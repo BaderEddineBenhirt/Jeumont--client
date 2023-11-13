@@ -1,0 +1,115 @@
+.item {
+    width: 99%;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    overflow: hidden; 
+    
+    &-right {
+        float: left;
+        padding: 5px;
+        width: 55%;
+        position: relative;
+        height: 85px;
+
+        .up-border, .down-border {
+            padding: 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        & .up-border {
+            top: -8px;
+            right: -35px;
+            border-bottom: 1px solid gray;
+        }
+
+        & .down-border {
+            bottom: -13px;
+            right: -35px;
+            border-top: 1px solid gray;
+        }
+        
+        &::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 77%;
+            background-color: gray;
+            position: absolute;
+            top: 13px;
+            right: -25px; 
+            border-style: dotted; 
+        }
+
+        @media (max-width: 1280px) { 
+            width: 100%;
+            height: auto; 
+            
+            &::after {
+                content: '';
+                display: block;
+                width: 95%;
+                height: 1px;
+                background-color: gray;
+                position: absolute;
+                left: 13px;
+                right: 13px;
+                top: 85px; 
+                border-style: dotted; 
+            }
+        }
+    }
+
+    &-left {
+        float: right;
+        padding: 5px;
+
+        @media (max-width: 1280px) { 
+            width: 100%;
+        }
+    }
+
+    &.expanded {
+        height: auto;
+        max-height: 9999px; 
+    }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #e92c5b;
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #e92c5b;
+}
+
+
+.custom-scrollbar-gray::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.custom-scrollbar-gray::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.custom-scrollbar-gray::-webkit-scrollbar-thumb {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+.custom-scrollbar-gray::-webkit-scrollbar-thumb:hover {
+    background-color: #575757;
+}
+  

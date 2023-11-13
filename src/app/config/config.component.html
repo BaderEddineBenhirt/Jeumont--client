@@ -1,0 +1,20 @@
+<div class="bg-[#D9D9D9] mx-2 mb-2 font-inter h-[98%] overflow-y-hidded">
+    <div class="p-4 rounded-[10px] h-[100%]">
+        <div class="h-[10%] grid grid-cols-7 border border-solid border-black text-center rounded-t-[10px]">
+            <ng-container *ngFor="let route of configRoutes">
+                <a 
+                    (click)="changeUrl()"
+                    [routerLink]="route.path" 
+                    class="py-3 border-r border-solid border-black"
+                    [ngClass]="{'text-white bg-[#E30039]': currentRoute.includes(route.path)}"
+                >
+                    {{ route.label }}
+                </a>
+            </ng-container>
+        </div>
+        <div class="bg-[#EEE] rounded-b-[10px] h-[90%] overflow-y-hidded">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+  

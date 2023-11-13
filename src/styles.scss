@@ -1,0 +1,134 @@
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-inter {
+    font-family: 'Inter';
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+input, select, textarea {
+    outline: none;
+}
+
+
+
+.fc-header-toolbar {
+    height: 40px;
+}
+
+.fc-toolbar-title {
+    font-weight: 400;
+    font-size: 14px !important;
+    color: black !important;
+}
+
+.fc .fc-col-header-cell-cushion {
+    display: none;
+}
+
+/* Ajouter une bordure rouge autour des jours de la semaine dans FullCalendar v5 */
+.fc .fc-col-header-cell {
+    border: 1px solid black; /* Bordure rouge de 1 pixel */
+}
+
+/* Personnalisation des boutons de navigation "prev" et "next" */
+.fc .fc-prev-button {
+    background-color: transparent; /* Couleur de fond des boutons */
+    color: #000; /* Couleur du texte des boutons */
+    font-weight: bold; /* Police en gras pour les boutons */
+    border: none;
+}
+
+.fc .fc-next-button {
+    background-color: transparent; /* Couleur de fond des boutons */
+    color: #000; /* Couleur du texte des boutons */
+    font-weight: bold; /* Police en gras pour les boutons */
+    border: none;
+}
+
+
+/* Hover et état actif des boutons de navigation */
+.fc .fc-prev-button:hover, .fc .fc-next-button:hover,
+.fc .fc-state-active {
+    background-color: transparent; /* Couleur de fond des boutons */
+    color: #000; /* Couleur du texte des boutons */
+    font-weight: bold; /* Police en gras pour les boutons */
+    border: none;
+}
+
+/* Personnalisation des événements dans le calendrier */
+.fc-event {
+    background-color: #4CAF50; /* Couleur de fond des événements */
+    color: #fff; /* Couleur du texte des événements */
+    border: 1px solid #4CAF50; /* Bordure des événements */
+}
+
+/* Hover des événements */
+.fc-event:hover {
+    background-color: #388E3C; /* Couleur de fond au survol des événements */
+    /* Autres styles au survol des événements */
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: #D9D9D9 !important;
+}
+
+.fc .fc-daygrid-day { 
+    margin-top: 0px;
+    border: 1px solid black !important;
+    background-color: white;
+}
+
+.schedule-block-events.e-schedule .e-timeline-view .e-appointment .template-wrap .subject {
+    padding: 10px 25px;
+}
+
+.schedule-block-events .subject {
+    text-align: center;
+}
+
+.schedule-block-events.e-schedule .template-wrap {
+    width: 100%;
+}
+
+.schedule-block-events.e-schedule .e-vertical-view .e-resource-cells {
+    height: 58px;
+}
+
+.schedule-block-events.e-block-appointment .subject,
+.schedule-block-events.e-schedule .e-vertical-view .e-appointment .template-wrap .subject {
+    padding-top: 10px;
+}
+
+.schedule-block-events.e-schedule .e-timeline-view .e-resource-left-td,
+.schedule-block-events.e-schedule .e-timeline-month-view .e-resource-left-td {
+    width: 170px;
+}
+
+.schedule-block-events.e-schedule .e-resource-cells.e-child-node .employee-category,
+.schedule-block-events.e-schedule .e-resource-cells.e-child-node .employee-name {
+    padding: 5px
+}
+
+.schedule-block-events.e-schedule .employee-image {
+    width: 45px;
+    height: 40px;
+    float: left;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+  
+.schedule-block-events.e-schedule .employee-name {
+    font-size: 13px;
+}
+  
+.schedule-block-events.e-schedule .employee-designation {
+    font-size: 10px;
+}

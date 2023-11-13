@@ -1,0 +1,163 @@
+<div class="item text-xs font-inter" [class.hidden]="isExpanded" [class.expanded]="isExpanded" [ngStyle]="{ 'background-color': 'rgba(' + getColorRGB(data.Status.status_color) + ', 0.3)' }">
+    <div class="item-right">
+        <div class="grid grid-cols-3 gap-4">
+            <div class="col-span-1">
+                <h1 class="font-semibold text-lg">{{ data.asked_ref }}</h1>
+                <div class="mt-1 flex">
+                    <div class="">
+                        <h2 class="mr-3">{{ data.Status.status_label }}</h2>
+                        <div class="h-3 w-10 rounded" [style.backgroundColor]="data.Status.status_color"></div>
+                    </div>
+                    <div class="text-left mt-1">
+                        <h5>Creation: <span>{{ data.asked_created_date | date:'dd/MM/yyyy' }}</span></h5>
+                        <h5 *ngIf="data.asked_updated_date">Update: <span>{{ data.asked_updated_date | date:'dd/MM/yyyy' }}</span></h5>
+                    </div>                      
+                </div>
+            </div>
+            <div class="col-span-1">
+                <p class="bg-[#E4E4E4] h-[75px] px-4 py-2 rounded-md text-left overflow-x-hidden overflow-y-scroll custom-scrollbar-gray">
+                    {{ data.asked_description }}    
+                </p>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div class="flex items-center justify-start">
+                    <img src="assets/icons/user.png" alt="" class="w-6 h-6" />
+                    <h5 class="ml-4 font-semibold md:font-bold text-xs md:text-sm">{{ data.Ship.Fleet.Customer.customer_name }}</h5>
+                </div>
+                <div class="flex items-center justify-start">
+                    <img src="assets/icons/ship.png" alt="" class="w-8 h-4" />
+                    <h5 class="ml-2 font-semibold md:font-bold text-xs md:text-sm">{{ data.Ship.ship_name }}</h5>
+                </div>
+            </div>
+        </div>
+        <span class="up-border hidden xl:block"></span>
+        <span class="down-border hidden xl:block"></span>
+    </div> 
+    <div class="item-left hidden lg:block">
+        <div class="mt-1 flex justify-between items-center">
+            <div class="flex flex-col justify-between">
+                <h2 class="text-left">Type Effect : <span class="font-bold">{{ data.EffectType.effect_type_label }}</span></h2>
+                <h2 class="mt-6 text-left">Effect : <span class="font-bold">ALARM (+2)</span></h2>
+            </div>
+            <div class="flex flex-col justify-between mx-28">
+                <h2 class="text-left">Level : <span class="font-bold">{{ data.Level.level_label }}</span></h2>
+                <h2 class="text-left">Side : <span class="font-bold">{{ data.Side.side_label }}</span></h2>
+            </div>
+            <div class="flex items-center justify-end">
+                <img src="assets/icons/polygon.png" (click)="toggleExpansion()" alt="" class="w-8 h-6 cursor-pointer" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="font-inter text-xs w-[99%] mb-[6px] p-2 bg-white rounded-[10px] border border-solid" [class.hidden]="!isExpanded" [ngStyle]="{ 'border-color': data.Status.status_color, 'background-color': 'rgba(' + getColorRGB(data.Status.status_color) + ', 0.3)' }">
+    <div class="grid grid-cols-6 lg:grid-cols-10">
+        <div class="col-span-2">
+            <h1 class="font-semibold text-lg">{{ data.asked_ref }}</h1>
+            <div class="mt-1 flex">
+                <div class="">
+                    <h2 class="mr-3">{{ data.Status.status_label }}</h2>
+                    <div class="h-3 w-10 rounded" [style.backgroundColor]="data.Status.status_color"></div>
+                </div>
+                <div class="text-left mt-1">
+                    <h5>Creation: <span>{{ data.asked_created_date | date:'dd/MM/yyyy' }}</span></h5>
+                    <h5 *ngIf="data.asked_updated_date">Update: <span>{{ data.asked_updated_date | date:'dd/MM/yyyy' }}</span></h5>
+                </div>                      
+            </div>
+        </div>
+        <div class="col-span-2 flex flex-col justify-between px-6">
+            <div class="flex items-center justify-start">
+                <img src="assets/icons/user.png" alt="" class="w-6 h-6" />
+                <h5 class="ml-4 font-semibold lg:font-bold text-xs lg:text-sm">{{ data.Ship.Fleet.Customer.customer_name }}</h5>
+            </div>
+            <div class="flex items-center justify-start">
+                <img src="assets/icons/ship.png" alt="" class="w-8 h-4" />
+                <h5 class="ml-2 font-semibold lg:font-bold text-xs lg:text-sm ">{{ data.Ship.ship_name }}</h5>
+            </div>
+        </div>
+        <div class="col-span-2 hidden lg:flex flex-col justify-between">
+            <h2 class="text-left">Type Effect : <span class="font-bold">{{ data.EffectType.effect_type_label }}</span></h2>
+            <h2 class="mt-6 text-left">Effect : <span class="font-bold">ALARM (+2)</span></h2>
+        </div>
+        <div class="hidden lg:flex flex-col justify-between">
+            <h2 class="text-left">Level : <span class="font-bold">{{ data.Level.level_label }}</span></h2>
+            <h2 class="text-left">Side : <span class="font-bold">{{ data.Side.side_label }}</span></h2>
+        </div>
+        <div class="col-span-2 mb-4">
+            <div class="flex justify-center items-center mb-3">
+                <div class="flex justify-center items-center">
+                    <div *ngFor="let oncall of onCallsWeek" class="mx-2 flex flex-col justify-center items-center" [ngClass]="{'flex': true}">
+                        <div class="w-6 h-6 mr-2 text-[10px] rounded-full border border-solid border-black m-[1px] flex justify-center items-center"
+                            [ngClass]="{
+                                'bg-[#E3D617]': oncall.skill_id === 1,
+                                'bg-[#17AFE3]': oncall.skill_id === 2,
+                                'bg-[#7DC37D]': oncall.skill_id === 3,
+                                'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                            }">
+                            <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                        </div>
+                        <h1 class="font-semibold text-xs">{{ oncall.user_name }}</h1>
+                    </div>
+                    <div *ngIf="onCallsWeek && onCallsWeek.length === 0">
+                        <p class="font-semibold text-[#E30039]">There are no supports</p>
+                    </div>
+                </div>
+            </div>
+            <div class="font-semibold px-2 col-span-3 flex items-center justify-around">
+                <div class="flex flex-col justify-center">
+                    <h2>CUSTOMER</h2>
+                    <input type="checkbox" />
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h2>TECHNICIAN</h2>
+                    <input type="checkbox" />
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h2>MANAGER</h2>
+                    <input type="checkbox" />                            
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end items-center cursor-pointer" (click)="toggleExpansion()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="20" viewBox="0 0 33 20" fill="none">
+                <path d="M16.5 0L32.9545 19.5H0.045517L16.5 0Z" fill="black"/>
+            </svg>
+        </div>
+    </div>
+    <div class="hidden lg:grid grid-cols-8 mt-2">
+        <div class="col-span-2">
+            <h1 class="text-base text-center font-semibold">Description</h1>
+            <p class="bg-[#E4E4E4] px-4 mx-4 h-[75px] py-2 text-left overflow-x-hidden overflow-y-scroll custom-scrollbar-gray z-0">
+                {{ data.asked_description }}    
+            </p>
+        </div>
+        <div class="col-span-3">
+            <h1 class="text-base text-center font-semibold">Analysis</h1>
+            <p [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.5)'" class="text-white h-[75px] px-4 mx-4 py-2 text-left overflow-x-hidden overflow-y-scroll custom-scrollbar">
+                {{ data.prfs_analyse }}    
+            </p>
+        </div>
+        <div class="col-span-2">
+            <h1 class="text-base text-center font-semibold">Root Cause</h1>
+            <p [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.5)'" class="text-white h-[75px] px-4 mx-4 py-2 text-left overflow-x-hidden overflow-y-scroll custom-scrollbar">
+                {{ data.prfs_root_cause }}    
+            </p>
+        </div>
+        <div class="col-span-1 flex flex-col items-center">
+            <div class="mb-2">
+                <button routerLink="/technnav/update/prfs/{{ data.asked_uuid }}" [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.9)'" class="px-6 lg:px-10 py-1 rounded-[10px] text-base flex justify-center items-center font-bold text-white border border-solid border-black">
+                    <img
+                        src="assets/icons/update.png"
+                        alt=""
+                        class="w-4 h-4 mr-2"
+                    />
+                    Edit
+                </button>
+            </div>
+            <div class="hidden lg:flex flex-col justify-between px-4">
+                <h2 *ngFor="let tagAsked of tagsAsked" class="px-4 py-1 rounded-[10px]" [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.5)'">{{ tagAsked.Tag.tag_label }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+ 

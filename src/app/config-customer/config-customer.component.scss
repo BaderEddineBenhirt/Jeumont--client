@@ -1,0 +1,27 @@
+input {
+    outline: none; /* Remove the default focus outline */
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #f1f1f1;    
+}
+  
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #E30039;
+    border-radius: 4px;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #E30039;
+}
+
+.selected-customer {
+    background-color: #E30039;
+    padding: 4px;
+    color: white;
+}

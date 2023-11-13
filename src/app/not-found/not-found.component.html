@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<div *ngIf="shouldDisplayButtonsToAdmin()">
+    <app-navbar-client></app-navbar-client>
+</div>
+
+<div *ngIf="shouldDisplayButtonsToClient()">
+    <!-- Affiche <app-nav-client> si la route actuelle est 'client' -->
+    <app-navbar-admin></app-navbar-admin>
+</div>
+<!-- not-found.component.html -->
+<div class="flex flex-col items-center justify-center h-[500px]">
+    <h1 class="text-6xl font-bold text-[#E30039] mb-4">404</h1>
+    <p class="text-xl text-black mb-8">Oops! The page you are looking for could not be found.</p>
+</div>
+  

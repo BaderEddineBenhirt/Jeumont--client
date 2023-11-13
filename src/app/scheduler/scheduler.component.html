@@ -1,0 +1,40 @@
+<div>
+    <div class="flex items-center justify-between">
+        <div class="flex items-center">
+            <div class="mr-4">
+                <span>Filter: </span>
+                <input class="rounded-[10px] p-2" placeholder="text ..." type="text" [(ngModel)]="filter.text" (ngModelChange)="changeText($event)" />
+            </div>
+            <label>
+                <input class="mr-2" type="checkbox" [(ngModel)]="filter.eventsOnly" (ngModelChange)="changeWithEvents($event)"> 
+                <span>Only rows with events</span>
+            </label>
+        </div>
+        <div class="flex items-center">
+            <div class="mr-4">
+                <label class="mr-2">Month:</label>
+                <select [(ngModel)]="selectedMonth" (change)="changeMonth()" class="p-2 rounded-[10px]">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div>
+                <a href="" class="py-2 px-4 bg-[#E30039] text-white rounded-[10px]" (click)="clearFilter()">Clear</a>
+            </div>
+        </div>
+    </div>
+    <div class="py-2">
+        <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
+    </div>
+</div>
+  

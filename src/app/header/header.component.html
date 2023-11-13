@@ -1,0 +1,79 @@
+<div class="font-inter py-3 px-10 flex justify-between">
+    <div *ngIf="shouldDisplayButtons()" (click)="logout()" routerLink="/" 
+        class="hidden cursor-pointer md:flex justify-center p-2 bg-[#BEBEBE] w-16 rounded-[10px]">
+        <div class="flex items-center">
+            <img
+                src="assets/icons/logout.png"
+                alt="Icon Logout"
+                class="w-6 h-6"
+            />
+        </div>
+    </div>
+
+    <div class="flex justify-center items-center">
+        <img
+            src="assets/images/logo-jeumont.png"
+            alt="Logo Jeument"
+            class="w-20 h-10 cursor-pointer"
+            (click)="redirect()"
+        />
+    </div>
+
+    <div *ngIf="shouldDisplayButtons()" class="hidden md:block">
+        <button routerLink="/client/contact" *ngIf="shouldDisplayButtonsToAdmin()" class=" bg-[#E30039] text-white py-1 px-3 text-base font-semibold rounded-[20px] flex justify-center">
+            <span
+                class="text-white font-bold border-2 mr-2 border-solid border-black px-2 rounded-full"
+            >
+                ?
+            </span>
+            Contact helpdesk
+        </button>
+        <br> <!-- Add a line break between the buttons -->
+        <button (click)="toggleLangage()" class=" bg-[#E30039] text-white py-1 px-3 text-base font-semibold -mt-5 rounded-[20px] flex justify-center">
+            <img
+                src="assets/icons/langues.png"
+                alt="Icon Word"
+                class="mr-2"
+            />
+            {{ 'languageChange' | translate }}
+        </button>
+    </div>    
+</div>
+<hr class="border border-solid border-[#E30039]">
+
+<!-- Transparent overlay for the Language Dropdown -->
+<div *ngIf="isLanguageOverlayVisible" class="fixed inset-0 bg-black opacity-50 z-40"></div>
+
+<div *ngIf="isLanguageOverlayVisible" class="font-inter font-bold absolute bottom-2 right-2 rounded-[10px] border border-solid border-[#E30039] bg-[#EEE] z-50 py-2 shadow-lg">
+    <div class="flex justify-end px-4">
+        <img
+            (click)="toggleLangage()" 
+            src="assets/icons/close.png"
+            alt="Icon close"
+            class="w-6 h-6 cursor-pointer"
+        />
+    </div>   
+    <div class="px-12 py-4">
+        <h2 class=" text-xl mb-4 text-center font-bold">{{ 'language' | translate }}</h2>
+        <hr class="border border-solid border-[#E30039]">
+    </div>  
+    <h2 class="px-4 mb-6">{{ 'preferred' | translate }}</h2> 
+    <div class="px-12 flex justify-between">
+        <div class="cursor-pointer bg-[#DBDBDB] mr-6 px-2 py-4 rounded-[10px]" (click)="changeLanguage('fr')">
+            <img
+                src="assets/icons/fr.png"
+                alt=""
+                class="w-28 h-14 mb-8"
+            />
+            <h2 class="text-center">{{ 'french' | translate }}</h2>
+        </div>
+        <div class="cursor-pointer bg-[#DBDBDB] px-2 py-4 rounded-[10px]" (click)="changeLanguage('en')">
+            <img
+                src="assets/icons/en.png"
+                alt=""                
+                class="w-28 h-14 mb-8"
+            />
+            <h2 class="text-center">{{ 'english' | translate }}</h2>
+        </div>
+    </div>
+</div>

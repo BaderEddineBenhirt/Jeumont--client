@@ -1,0 +1,156 @@
+<div class="font-inter">
+    <div class="bg-[#D9D9D9] mx-2 py-2">
+        <div class="flex px-10 pt-3 pb-3">
+                <div class="px-2 py-1 text-sm bg-[#E8E8E8] flex items-center rounded-[10px]">
+                    <h1>{{ 'sort' | translate }} :</h1>
+                    <select class="ml-2 text-sm border border-black w-28">
+                        <option value="option1">Status</option>
+                        <option value="option2">Client</option>
+                        <option value="option3">User</option>
+                        <!-- Ajoutez d'autres options selon vos besoins -->
+                    </select>
+                </div>                
+                <button class="ml-3 font-semibold flex items-center">
+                    <img
+                        alt="Filter Icon"
+                        src="assets/icons/filter.png"
+                        class="w-7 h-9"
+                    />
+                    {{ 'filter' | translate }}
+                </button>
+        </div>
+        <div class="mx-10 h-[250px] overflow-y-scroll custom-scrollbar">
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFFFFF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFFFFF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFFFFF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFCFCF" ></app-ticket>
+            <app-ticket color="#FFFFFF" ></app-ticket>
+        </div>
+    </div>
+    <div class="bg-[#D9D9D9] mx-2 my-2">
+        <div class="h-[140px] flex justify-center mx-2 my-2 ">
+                <h1 class="my-auto text-2xl font-semibold cursor-pointer">Document research</h1>
+             
+            <!-- <table class="w-full">
+                <thead>   
+                    <tr>
+                        <th class="p-1">Name</th>
+                        <th >Description</th>
+                        <th >Type</th>
+                        <th >Created on</th>
+                        <th >Last updated on</th>
+                        <th >Size</th>
+                    </tr>             
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    <tr class=" text-center">
+                        <td >19DLIS0211_B_MatrixFlt.pdf</td>
+                        <td >Fault Matrix List</td>
+                        <td >PDF</td>
+                        <td >10/02/2019</td>
+                        <td >11/02/2019</td>
+                        <td >222 Ko</td>
+                    </tr>
+                    
+                </tbody>
+            </table> -->
+        </div>
+    </div>
+</div>
+
+    

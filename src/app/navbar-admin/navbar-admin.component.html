@@ -1,0 +1,275 @@
+<nav class="font-inter relative grid grid-cols-2 md:grid-cols-3 py-1 px-10 shadow-lg h-full">
+    <!-- Menu toggle -->
+
+    <div class="flex items-center justify-start" (click)="toggleMenu()">
+        <div class="flex items-center">
+            <img [src]="menuImgSrc" alt="" class="w-10 h-10 cursor-pointer" />
+            <h2 class="ml-2 font-semibold text-lg cursor-pointer">Menu</h2>
+        </div>
+    </div>
+
+    <!-- Transparent overlay for the Creation Ticket Dropdown -->
+    <div *ngIf="isMenuVisible" class="fixed inset-0 bg-black opacity-50 z-40"></div>
+
+
+    <!-- Mega Dropdown -->
+    <div *ngIf="isMenuVisible" class="w-[330px] font-bold fixed bottom-0 left-0 bg-[#fff] z-50 py-[18px] shadow-lg h-screen" >
+        <div class="flex items-center px-4 py-3" (click)="toggleMenu()">
+            <img [src]="menuImgSrc" alt="" class="w-10 h-10 cursor-pointer" />
+            <h2 class="ml-2 font-semibold text-lg cursor-pointer">Menu</h2>
+        </div>
+        <hr class="border border-solid border-[#E30039]">
+        <div class="pt-4 px-4">
+            <button class="text-sm cursor-pointer py-2 flex items-center" routerLink="/technnav" (click)="toggleMenu()">
+                <img
+                    alt="Home icon"
+                    src="assets/icons/dash.png"
+                    class="w-6 h-6 mr-2"    
+                />
+                <h2 class="uppercase">{{ 'dashboard' | translate }}</h2>
+            </button>
+        </div>   
+        <hr class="border border-solid border-[#E30039]">
+        <div class="px-4 py-2">
+            <h2 class="text-sm cursor-pointer uppercase py-2" (click)="createTicket()">{{ 'createTicket' | translate }}</h2>
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/statistique" (click)="toggleMenu()">{{ 'statisticsTickets' | translate }}</h2>
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/tickets" (click)="toggleMenu()">{{ 'listingTickets' | translate }}</h2>
+        </div>   
+        <hr class="border border-solid border-[#E30039]">
+        <div class="px-4 py-2">
+            <!-- <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/document" (click)="toggleMenu()">{{ 'searchDocument' | translate }}</h2> -->
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/customer" (click)="toggleMenu()">{{ 'searchClient' | translate }}</h2>
+        </div>
+        <hr class="border border-solid border-[#E30039]">
+        <div class="px-4 py-2">
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/config" (click)="toggleMenu()">Congif and on-call schedule</h2>
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/calendrier" (click)="toggleMenu()">Calendrier</h2>
+        </div>
+
+        <div class="mx-3 px-2 py-2 mt-4 bg-[#EEEEEE] rounded-[10px]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <g filter="url(#filter0_d_460_7564)">
+                    <circle cx="12" cy="8" r="8" fill="#FC1212"/>
+                </g>
+                <defs>
+                    <filter id="filter0_d_460_7564" x="0" y="0" width="24" height="24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                        <feOffset dy="4"/>
+                        <feGaussianBlur stdDeviation="2"/>
+                        <feComposite in2="hardAlpha" operator="out"/>
+                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_460_7564"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_460_7564" result="shape"/>
+                    </filter>
+                </defs>
+            </svg>
+            <h4 class="text-[12px] text-center">Ticket PRFS #23PRFSWWXX has been updated.</h4>
+            <div class="flex items-center justify-center py-3">
+                <ul class="text-[12px] font-normal font-inter px-6 list-disc text-xs">
+                    <li>Priority : important -> Urgent.   </li>
+                    <li>New attachment uploaded. </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  
+    <div class="flex justify-center items-center">
+        <h2 class="text-base lg:text-2xl font-bold uppercase">{{ title | translate }}</h2>
+    </div>
+  
+    <div class="hidden md:flex md:items-center md:justify-end" *ngIf="isTechnnavRoute()">
+        <div class="font-semibold">
+            <div class="grid grid-cols-2 px-4 w-[480px] text-xs rounded-[10px] bg-[#D9D9D9] border border-solid border-black">
+                <div class="flex justify-between items-center">  
+                    <div>
+                        <h2>Week {{lastWeek}}</h2> 
+                    </div>  
+                    <div class="ml-2" *ngFor="let oncall of onCallsLastWeek">
+                        <ng-container *ngIf="oncall.primary_backup">
+                            <div class="relative" (mouseleave)="isHovered = false && mail= ''" (mouseenter)="isHovered = true && mail= oncall.user_email">
+                                <div class="w-5 h-5 text-[9px] rounded-full border border-solid border-black m-[1px] cursor-pointer flex justify-center items-center"
+                                    [ngClass]="{
+                                        'bg-[#E3D617]': oncall.skill_id === 1,
+                                        'bg-[#17AFE3]': oncall.skill_id === 2,
+                                        'bg-[#7DC37D]': oncall.skill_id === 3,
+                                        'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                                    }"
+                                >
+                                <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-max p-1 bg-gray-900 text-white text-[9px] rounded-md" 
+                                    *ngIf="isHovered && mail === oncall.user_email">
+                                    {{ oncall.user_first_name }}
+                                </div>
+                            </div>
+                        </ng-container>                   
+                    </div>
+                </div>
+                <div class="px-2 border-l border-dashed border-black flex items-center justify-start">
+                    <div *ngFor="let oncall of onCallsLastWeek">
+                        <ng-container *ngIf="oncall.emergency_back">
+                            <div class="relative" (mouseleave)="isHovered = false && mail= ''" (mouseenter)="isHovered = true && mail= oncall.user_email">
+                                <div class="w-5 h-5 text-[9px] rounded-full border border-solid border-black m-[1px] cursor-pointer flex justify-center items-center"
+                                    [ngClass]="{
+                                        'bg-[#E3D617]': oncall.skill_id === 1,
+                                        'bg-[#17AFE3]': oncall.skill_id === 2,
+                                        'bg-[#7DC37D]': oncall.skill_id === 3,
+                                        'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                                    }"
+                                >
+                                <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-max p-1 bg-gray-900 text-white text-[9px] rounded-md" 
+                                    *ngIf="isHovered && mail === oncall.user_email">
+                                    {{ oncall.user_first_name }}
+                                </div>
+                            </div>
+                        </ng-container>                                
+                    </div>  
+                </div>
+            </div>
+            <div class="grid grid-cols-2 my-[2px] py-1 px-4 w-[480px] text-sm rounded-[10px] bg-[#BFF4FF] border border-solid border-black">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="underline">Week {{currentWeek}}</h2>
+                    </div>    
+                    <div class="ml-2" *ngFor="let oncall of onCallsThisWeek">
+                        <ng-container *ngIf="oncall.primary_backup">
+                            <div class="relative" (mouseleave)="isHovered = false && mail= ''" (mouseenter)="isHovered = true && mail= oncall.user_email">
+                                <div class="w-5 h-5 text-[9px] rounded-full border border-solid border-black m-[1px] cursor-pointer flex justify-center items-center"
+                                    [ngClass]="{
+                                        'bg-[#E3D617]': oncall.skill_id === 1,
+                                        'bg-[#17AFE3]': oncall.skill_id === 2,
+                                        'bg-[#7DC37D]': oncall.skill_id === 3,
+                                        'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                                    }"
+                                >
+                                <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-max p-1 bg-gray-900 text-white text-[9px] rounded-md" 
+                                    *ngIf="isHovered && mail === oncall.user_email">
+                                    {{ oncall.user_first_name }}
+                                </div>
+                            </div>
+                        </ng-container>                                  
+                    </div>
+                </div>
+                <div class="px-2 border-l border-dashed border-black flex items-center justify-start">
+                    <div *ngFor="let oncall of onCallsThisWeek">
+                        <ng-container *ngIf="oncall.emergency_back">
+                            <div class="relative" (mouseleave)="isHovered = false && mail= ''" (mouseenter)="isHovered = true && mail= oncall.user_email">
+                                <div class="w-5 h-5 text-[9px] rounded-full border border-solid border-black m-[1px] cursor-pointer flex justify-center items-center"
+                                    [ngClass]="{
+                                        'bg-[#E3D617]': oncall.skill_id === 1,
+                                        'bg-[#17AFE3]': oncall.skill_id === 2,
+                                        'bg-[#7DC37D]': oncall.skill_id === 3,
+                                        'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                                    }"
+                                >
+                                <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-max p-1 bg-gray-900 text-white text-[9px] rounded-md" 
+                                    *ngIf="isHovered && mail === oncall.user_email">
+                                    {{ oncall.user_first_name }}
+                                </div>
+                            </div>
+                        </ng-container>                            
+                    </div>
+                </div>  
+            </div>
+            <div class="grid grid-cols-2 px-4 w-[480px] text-xs rounded-[10px] bg-[#D9D9D9] border border-solid border-black">
+                <div class="flex justify-between items-center">    
+                    <div>
+                        <h2>Week {{nextWeek}}</h2> 
+                    </div>
+                    <div *ngFor="let oncall of onCallsNextWeek">
+                        <ng-container *ngIf="oncall.primary_backup">
+                            <div class="relative" (mouseleave)="isHovered = false && mail= ''" (mouseenter)="isHovered = true && mail= oncall.user_email">
+                                <div class="w-5 h-5 text-[9px] rounded-full border border-solid border-black m-[1px] cursor-pointer flex justify-center items-center"
+                                    [ngClass]="{
+                                        'bg-[#E3D617]': oncall.skill_id === 1,
+                                        'bg-[#17AFE3]': oncall.skill_id === 2,
+                                        'bg-[#7DC37D]': oncall.skill_id === 3,
+                                        'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                                    }"
+                                >
+                                <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-max p-1 bg-gray-900 text-white text-[9px] rounded-md" 
+                                    *ngIf="isHovered && mail === oncall.user_email">
+                                    {{ oncall.user_first_name }}
+                                </div>
+                            </div>
+                        </ng-container>                                                   
+                    </div>
+                </div>
+                <div class="px-2 border-l border-dashed border-black flex items-center justify-end">
+                    <div *ngFor="let oncall of onCallsNextWeek">
+                        <ng-container *ngIf="oncall.emergency_back">
+                            <div class="relative" (mouseleave)="isHovered = false && mail= ''" (mouseenter)="isHovered = true && mail= oncall.user_email">
+                                <div class="w-5 h-5 text-[9px] rounded-full border border-solid border-black m-[1px] cursor-pointer flex justify-center items-center"
+                                    [ngClass]="{
+                                        'bg-[#E3D617]': oncall.skill_id === 1,
+                                        'bg-[#17AFE3]': oncall.skill_id === 2,
+                                        'bg-[#7DC37D]': oncall.skill_id === 3,
+                                        'bg-[#D3D3D3]': oncall.skill_id !== 1 && oncall.skill_id !== 2 && oncall.skill_id !== 3
+                                    }"
+                                >
+                                <h1><span>{{ oncall.user_first_name.charAt(0) }}</span>.<span>{{ oncall.user_name.charAt(0) }}</span></h1>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-max p-1 bg-gray-900 text-white text-[9px] rounded-md" 
+                                    *ngIf="isHovered && mail === oncall.user_email">
+                                    {{ oncall.user_first_name }}
+                                </div>
+                            </div>
+                        </ng-container>                                 
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div  class="hidden md:flex md:justify-end md:items-center" *ngIf="isTechnnavChildRoute()">
+        <button (click)="toggleCreationTicket()" class="flex justify-center font-semibold bg-[#E30039] py-3 px-6 text-white border border-solid border-black rounded-[10px]">
+            {{ 'newTicket' | translate }}
+            <img
+                src="assets/icons/create-ticket.png"
+                alt="Create ticket button"
+                class="w-6 h-6 ml-4"
+            />
+        </button>
+    </div>    
+</nav>
+
+<!-- Transparent overlay for the Creation Ticket Dropdown -->
+<div *ngIf="isCreationTicketVisible" class="fixed inset-0 bg-black opacity-50 z-40"></div>
+
+<!-- Transparent overlay for the Creation Ticket Dropdown -->
+<div *ngIf="isCreationTicketVisible" class="font-bold absolute top-1/3 left-1/2 rounded-[20px] transform -translate-x-1/2 border border-solid border-[#E30039] bg-white z-50 py-2 shadow-lg ">
+    <div class="flex justify-between px-4 py-1">
+        <div></div>
+        <div>
+            <h1 class="font-bold mb-1">{{ 'newTicket' | translate }}</h1>
+        </div>
+        <div>
+            <img
+                (click)="toggleCreationTicket()"
+                alt="Icon close"
+                src="assets/icons/close.png"
+                class="w-4 h-4 cursor-pointer"
+            />
+        </div>
+    </div>   
+    <div class="px-2">
+        <hr class="px-2 border border-dashed border-gray-600">
+        <h2 class="text-sm text-center mt-4">{{ 'whichkindTicket' | translate }}</h2>
+    </div>   
+    <div class="flex justify-between px-6 py-8">
+        <button class="rounded-[10px] mr-6 bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/technnav/create/prfs" (click)="toggleCreationTicket()">PRFS</button>
+        <button class="rounded-[10px] mr-6 bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/technnav/create/prfm" (click)="toggleCreationTicket()">PRFM</button>
+        <button class="rounded-[10px] bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/technnav/create/prma" (click)="toggleCreationTicket()">PRMA</button>
+    </div>
+</div>
+    
+  

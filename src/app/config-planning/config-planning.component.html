@@ -1,0 +1,120 @@
+<div class="font-inter grid h-[100%] ">
+    <div class="bg-[#FFF] m-4 font-semibold rounded-[10px] h-[90%]">
+        <div class="bg-[#E30039] text-[#F5F5F5] flex justify-center items-center h-[15%] rounded-t-[10px]">
+            <h1>Create an on-call duty</h1>
+        </div>
+        <div class="h-[85%] flex flex-col justify-between p-4 rounded-b-[10px]">
+            <div class="grid grid-cols-2">
+                <div class="flex flex-col justify-center items-center">
+                    <label class="text-base">Week Number</label>
+                    <select class="p-2 border border-solid border-black" [(ngModel)]="idWeek">
+                        <option value="0" selected disabled>None</option>
+                        <ng-container *ngFor="let week of weeks">
+                            <option *ngIf="week.week_id >= currentWeek" [value]="week.week_id">{{ week.week_label }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                
+                <div class="flex flex-col justify-center items-center">
+                    <label class="text-base">Year Number</label>
+                    <select class="p-2 border border-solid border-black" [(ngModel)]="idYear">
+                        <option value="0" selected disabled>None</option>
+                        <ng-container *ngFor="let year of years">
+                            <option *ngIf="year.year_id >= currentYear" [value]="year.year_id">{{ year.year_label }}</option>
+                        </ng-container>
+                    </select>
+                </div>                
+            </div>
+            <div class="grid grid-cols-2">
+                <div class="bg-[#D9D9D9] m-4 rounded-md">
+                    <div class="bg-[#E30039] rounded-t-md py-2 text-sm font-normal flex justify-center items-center w-[100%] text-white">
+                        <h1>Add user to primary backup</h1>
+                    </div>
+                    <div>
+                        <div class="py-2 flex flex-col justify-center items-center">
+                            <h1>Email :</h1>
+                            <div class="relative py-2">
+                                <input
+                                    [(ngModel)]="userEmailPrim"
+                                    (input)="onInputChange()"
+                                    type="email"
+                                    placeholder="email@jeumontelectric.com"
+                                    class="p-1 font-normal border border-solid border-[#E30039] relative"
+                                />
+                                <div
+                                    class="z-50 absolute top-full left-0 h-[100px] custom-scrollbar p-1 shadow-md overflow-y-scroll bg-white"
+                                    *ngIf="suggestionsPrim.length > 0"
+                                >
+                                    <ul>
+                                        <li
+                                            class="py-1 cursor-pointer"
+                                            *ngFor="let suggestion of suggestionsPrim"
+                                            (click)="selectSuggestionPrim(suggestion.user_email, suggestion.user_uuid)"
+                                        >
+                                            {{ suggestion.user_email }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-2 pb-6 flex justify-center items-center">
+                            <button 
+                                (click)="onSubmitPrim()"
+                                class="flex items-center justify-center bg-[#E30039] mr-2 text-white rounded-[10px] border border-solid border-black py-2 px-8">
+                                <img
+                                    src="assets/icons/save.png"
+                                    class="w-5 h-5 mr-2"
+                                />
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#D9D9D9] m-4 rounded-md">
+                    <div class="bg-[#E30039] rounded-t-md py-2 text-sm font-normal flex justify-center items-center w-[100%] text-white">
+                        <h1>Add user to emergency backup</h1>
+                    </div>
+                    <div>
+                        <div class="py-2 flex flex-col justify-center items-center">
+                            <h1>Email :</h1>
+                            <div class="relative py-2">
+                                <input
+                                    [(ngModel)]="userEmailEmer"
+                                    (input)="onInputChange()"
+                                    type="email"
+                                    placeholder="email@jeumontelectric.com"
+                                    class="p-1 font-normal border border-solid border-[#E30039] relative"
+                                />
+                                <div
+                                    class="z-50 absolute top-full left-0 h-[100px] custom-scrollbar p-1 shadow-md overflow-y-scroll bg-white"
+                                    *ngIf="suggestionsEmer.length > 0"
+                                >
+                                    <ul>
+                                        <li
+                                            class="py-1 cursor-pointer"
+                                            *ngFor="let suggestion of suggestionsEmer"
+                                            (click)="selectSuggestionEmer(suggestion.user_email, suggestion.user_uuid)"
+                                        >
+                                            {{ suggestion.user_email }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-2 flex justify-center items-center">
+                            <button 
+                                (click)="onSubmitEmer()"
+                                class="flex items-center justify-center bg-[#E30039] mr-2 text-white rounded-[10px] border border-solid border-black py-2 px-8">
+                                <img
+                                    src="assets/icons/save.png"
+                                    class="w-5 h-5 mr-2"
+                                />
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

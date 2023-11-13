@@ -1,0 +1,69 @@
+<div class="font-inter text-sm font-semibold h-[100%]">
+    <div class="p-4 mx-4 h-[100%]">
+        <div class="bg-[#E30039] text-[#F5F5F5] h-[15%] rounded-t-[10px] flex justify-center items-center">
+            <h1>Tags</h1>
+        </div>
+        <div class="p-4 bg-[#fff] rounded-b-[10px] h-[85%]">
+            <div class="flex flex-col justify-center items-center m-14">
+                <select class="font-normal border border-solid border-black w-[300px] p-3" [(ngModel)]="selectedTag">
+                    <option value="0" selected disabled>None</option>
+                    <option *ngFor="let tag of tags" [value]="tag.tag_id">{{ tag.tag_label }}</option>    
+                </select>
+            </div>
+            <div class="flex flex-col justify-center my-6">
+                <button *ngIf="!selectedTag" (click)="toggleCreateTag()">Add</button>
+                <button *ngIf="selectedTag" class="py-3">Edit</button>
+                <button *ngIf="selectedTag" class="py-3">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Transparent overlay for the Creation Ticket Dropdown -->
+<div *ngIf="isCreateTagVisible" class="fixed inset-0 bg-black opacity-50 z-40"></div>
+
+<!-- Transparent overlay for the Creation Ticket Dropdown -->
+<div *ngIf="isCreateTagVisible" class="absolute w-[450px] top-1/3 left-1/2 rounded-[20px] transform -translate-x-1/2 border border-solid border-black bg-[#D9D9D9] z-50 shadow-lg ">
+    <div class="flex justify-between bg-[#E30039] text-white py-3 px-4 rounded-t-[20px]">
+        <div></div>
+        <div>
+            <h1 class="mb-1">Create tag</h1>
+        </div>
+        <div>
+            <img
+                (click)="toggleCreateTag()"
+                alt="Icon close"
+                src="assets/icons/close.png"
+                class="w-6 h-6 cursor-pointer"
+            />
+        </div>
+    </div>   
+    <form [formGroup]="form" class="flex flex-col justify-center items-center">
+        <label class="my-3 font-bold">New tag</label>
+        <input type="text" formControlName="tag_label" placeholder="Tag" class="p-2 w-[170px] bg-white border border-solid border-[#E30039]" />
+    </form>
+    <div class="flex justify-center items-center py-6">
+        <button
+            (click)="createTag()" 
+            class="flex items-center justify-center bg-[#E30039] mr-2 text-white rounded-[10px] border border-solid border-black py-2 px-8"
+        >
+            <img
+                src="assets/icons/save.png"
+                class="w-5 h-5 mr-2"
+            />
+            Save
+        </button>
+        <button 
+            (click)="toggleCreateTag()"
+            class="flex items-center justify-center bg-white text-[#E30039] rounded-[10px] border border-solid border-black py-2 px-8"
+        >
+            <img
+                src="assets/icons/cancel.png"
+                class="w-5 h-5 mr-2"
+                alt="close"            
+            />
+            Cancel
+        </button>
+    </div>
+</div>

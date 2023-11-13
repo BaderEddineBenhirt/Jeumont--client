@@ -1,0 +1,10 @@
+<div *ngIf="data.ticket_type === 'PRFS'">
+    <app-ticket-prfs [data]="data" [idAsked]="data.asked_uuid"></app-ticket-prfs>
+</div>
+<div *ngIf="data.ticket_type === 'PRFM'">
+    <app-ticket-prfm [data]="data"></app-ticket-prfm>
+</div>
+<div *ngIf="data.ticket_type === 'PRMP'">
+    <app-ticket-prmp [data]="data"></app-ticket-prmp>
+</div>
+  
