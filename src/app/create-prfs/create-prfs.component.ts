@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ConversationService } from '../services/conversation.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from '../services/message.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-create-prfs',
@@ -38,6 +39,11 @@ export class CreatePrfsComponent implements OnInit {
   loading: boolean = false;
 
 
+      currentRoute!: string;
+  curentRole? :boolean;
+    curentAdmin? :boolean;
+ 
+
 
   constructor(
     private fb: FormBuilder,
@@ -48,9 +54,11 @@ export class CreatePrfsComponent implements OnInit {
     private sharedTitleService: SharedTitleService,
     private messageService: MessageService,
     private router: Router,
+    private authService : AuthService
   ) {}
 
   ngOnInit(): void {
+    this.redirect() ;
     this.sharedTitleService.changeTitle('PRFS CREATION');
     this.form = this.fb.group({
       asked_description: [''],
@@ -325,7 +333,15 @@ export class CreatePrfsComponent implements OnInit {
           );
 
           
-          this.router.navigate(['/technnav']);
+           if(this.curentAdmin){
+        
+            this.router.navigate(['/technnav']);
+         
+          }
+          if(this.curentRole){
+        
+            this.router.navigate(['/client']);
+          }
 
         }, 4000); 
       },
@@ -363,9 +379,15 @@ export class CreatePrfsComponent implements OnInit {
       skill_id: 0,
       level_id: 0
     });
-
-    this.router.navigate(['/technnav']);
-
+ if(this.curentAdmin){
+        
+            this.router.navigate(['/technnav']);
+         
+          }
+          if(this.curentRole){
+        
+            this.router.navigate(['/client']);
+          }
   }
 
   onFileChange(event: any) {
@@ -429,5 +451,14 @@ export class CreatePrfsComponent implements OnInit {
         console.error('Error creating Conversation:', error);
       }
     );    
+  }
+   redirect() {
+    const userRole = this.authService.getUserRole();
+  
+    if (userRole === 1 || userRole === 2 || userRole === 3 || userRole === 4) {
+      this.curentAdmin=true
+    } else if (userRole === 10 || userRole === 11 || userRole === 12) {
+      this.curentRole=true
+    }
   }
 }

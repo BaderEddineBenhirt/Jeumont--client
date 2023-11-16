@@ -1,0 +1,21 @@
+.flex_it {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-wrapper {
+    width: auto;
+    height: 39px;
+    top: 0;
+    left: 0;
+    font-family: 'Inter-Medium, Helvetica';
+    font-weight: 500px;
+    margin: 7.5px 15px;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    cursor: pointer;
+}

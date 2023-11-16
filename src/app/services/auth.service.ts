@@ -27,13 +27,13 @@ export class AuthService {
 
     return this.http.post<any>(`${this.apiUrl}/auth/token`, loginData).pipe(
       tap((response) => {
+       
         const { accessToken } = response;
         this.cookieService.set('access_token', accessToken);
         this.cookieService.set('user_uuid', this.getUserId());
-        
         // Role for redirect
         const roleUser = this.getUserRole();
-  
+   
         if (roleUser === 1 || roleUser === 2 || roleUser === 3 || roleUser === 4) {
           this.router.navigate(['/technnav']); 
         } else if (roleUser === 10 || roleUser === 11 || roleUser === 12) {

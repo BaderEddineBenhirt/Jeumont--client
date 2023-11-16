@@ -2,11 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { InfosService } from '../services/infos.service';
 import { OnCallService } from '../services/on-call.service';
 import { getISOWeek } from 'date-fns';
+import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-ticket-prfs',
   templateUrl: './ticket-prfs.component.html',
-  styleUrls: ['./ticket-prfs.component.scss']
+  styleUrls: ['./ticket-prfs.component.scss'],
 })
 export class TicketPrfsComponent implements OnInit {
   @Input() data: any;
@@ -14,40 +16,58 @@ export class TicketPrfsComponent implements OnInit {
   tagsAsked: any[] = [];
   isExpanded: boolean = false;
   onCallsWeek: any[] = [];
+  currentRoute!: string;
+  curentRole? :boolean;
+    curentAdmin? :boolean;
 
-  constructor (
+  constructor(
+    private router: Router,
     private onCallService: OnCallService,
-    private infosService: InfosService,
-  ) { }
-  
+    private authService:AuthService,
+    private infosService: InfosService
+  ) {
+    
+  }
+ 
+  isshowed(){
+    return this.currentRoute.startsWith('/client')
+  }
+
   ngOnInit(): void {
     this.getOnCallNextWeek();
     this.fetchAskedTags();
+    this.redirect();
   }
-  
+
   toggleExpansion() {
     this.isExpanded = !this.isExpanded;
   }
 
   private fetchAskedTags(): void {
-    if (this.idAsked !== null) { // Vérifiez que customerUuid n'est pas null
+    if (this.idAsked !== null) {
+      // Vérifiez que customerUuid n'est pas null
       this.infosService.getTagsByAsked(this.idAsked).subscribe(
-        data => {
+        (data) => {
           this.tagsAsked = data;
+          console.log(this.tagsAsked);
         },
-        error => {
-          console.error('Erreur lors de la récupération des types d\'effet:', error);
+        (error) => {
+          console.error(
+            "Erreur lors de la récupération des types d'effet:",
+            error
+          );
         }
       );
     }
   }
 
-  getOnCallNextWeek () {
+  getOnCallNextWeek() {
     this.onCallService.findOnChangeId(this.idAsked).subscribe(
-      data => {
+      (data) => {
         this.onCallsWeek = data;
+      
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la récupération des on calls:', error);
       }
     );
@@ -60,5 +80,14 @@ export class TicketPrfsComponent implements OnInit {
     const g = (bigint >> 8) & 255;
     const b = bigint & 255;
     return r + ',' + g + ',' + b;
+  }
+  redirect() {
+    const userRole = this.authService.getUserRole();
+  
+    if (userRole === 1 || userRole === 2 || userRole === 3 || userRole === 4) {
+      this.curentAdmin=true
+    } else if (userRole === 10 || userRole === 11 || userRole === 12) {
+      this.curentRole=true
+    }
   }
 }

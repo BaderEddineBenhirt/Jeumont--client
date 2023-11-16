@@ -11,12 +11,12 @@
                     <div class="text-left mt-1">
                         <h5>Creation: <span>{{ data.asked_created_date | date:'dd/MM/yyyy' }}</span></h5>
                         <h5 *ngIf="data.asked_updated_date">Update: <span>{{ data.asked_updated_date | date:'dd/MM/yyyy' }}</span></h5>
-                    </div>                      
+                    </div>
                 </div>
             </div>
             <div class="col-span-1">
                 <p class="bg-[#E4E4E4] h-[75px] px-4 py-2 rounded-md text-left overflow-x-hidden overflow-y-scroll custom-scrollbar-gray">
-                    {{ data.asked_description }}    
+                    {{ data.asked_description }}
                 </p>
             </div>
             <div class="flex flex-col justify-between">
@@ -32,7 +32,7 @@
         </div>
         <span class="up-border hidden xl:block"></span>
         <span class="down-border hidden xl:block"></span>
-    </div> 
+    </div>
     <div class="item-left hidden lg:block">
         <div class="mt-1 flex justify-between items-center">
             <div class="flex flex-col justify-between">
@@ -62,7 +62,7 @@
                 <div class="text-left mt-1">
                     <h5>Creation: <span>{{ data.asked_created_date | date:'dd/MM/yyyy' }}</span></h5>
                     <h5 *ngIf="data.asked_updated_date">Update: <span>{{ data.asked_updated_date | date:'dd/MM/yyyy' }}</span></h5>
-                </div>                      
+                </div>
             </div>
         </div>
         <div class="col-span-2 flex flex-col justify-between px-6">
@@ -87,8 +87,7 @@
             <div class="flex justify-center items-center mb-3">
                 <div class="flex justify-center items-center">
                     <div *ngFor="let oncall of onCallsWeek" class="mx-2 flex flex-col justify-center items-center" [ngClass]="{'flex': true}">
-                        <div class="w-6 h-6 mr-2 text-[10px] rounded-full border border-solid border-black m-[1px] flex justify-center items-center"
-                            [ngClass]="{
+                        <div class="w-6 h-6 mr-2 text-[10px] rounded-full border border-solid border-black m-[1px] flex justify-center items-center" [ngClass]="{
                                 'bg-[#E3D617]': oncall.skill_id === 1,
                                 'bg-[#17AFE3]': oncall.skill_id === 2,
                                 'bg-[#7DC37D]': oncall.skill_id === 3,
@@ -114,7 +113,7 @@
                 </div>
                 <div class="flex flex-col justify-center">
                     <h2>MANAGER</h2>
-                    <input type="checkbox" />                            
+                    <input type="checkbox" />
                 </div>
             </div>
         </div>
@@ -128,22 +127,33 @@
         <div class="col-span-2">
             <h1 class="text-base text-center font-semibold">Description</h1>
             <p class="bg-[#E4E4E4] px-4 mx-4 h-[75px] py-2 text-left overflow-x-hidden overflow-y-scroll custom-scrollbar-gray z-0">
-                {{ data.asked_description }}    
+                {{ data.asked_description }}
             </p>
         </div>
         <div class="col-span-3">
             <h1 class="text-base text-center font-semibold">Analysis</h1>
             <p [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.5)'" class="text-white h-[75px] px-4 mx-4 py-2 text-left overflow-x-hidden overflow-y-scroll custom-scrollbar">
-                {{ data.prfs_analyse }}    
+                {{ data.prfs_analyse }}
             </p>
         </div>
         <div class="col-span-2">
             <h1 class="text-base text-center font-semibold">Root Cause</h1>
             <p [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.5)'" class="text-white h-[75px] px-4 mx-4 py-2 text-left overflow-x-hidden overflow-y-scroll custom-scrollbar">
-                {{ data.prfs_root_cause }}    
+                {{ data.prfs_root_cause }}
             </p>
         </div>
-        <div class="col-span-1 flex flex-col items-center">
+        <div *ngIf="curentRole" class="col-span-1 flex flex-col items-center">
+            <div class="mb-2">
+                <button routerLink="/client/open/prfs/{{ data.asked_uuid }}" [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.9)'" class="px-6 lg:px-10 py-1 rounded-[10px] text-base flex justify-center items-center font-bold text-white border border-solid border-black">
+                    
+                    open
+                </button>
+            </div>
+            <div class="hidden lg:flex flex-col justify-between px-4">
+                <h2 *ngFor="let tagAsked of tagsAsked" class="px-4 py-1 rounded-[10px]" [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.5)'">{{ tagAsked.Tag.tag_label }}</h2>
+            </div>
+        </div>
+        <div *ngIf="curentAdmin" class="col-span-1 flex flex-col items-center">
             <div class="mb-2">
                 <button routerLink="/technnav/update/prfs/{{ data.asked_uuid }}" [style.backgroundColor]="'rgba(' + getColorRGB(data.Status.status_color) + ', 0.9)'" class="px-6 lg:px-10 py-1 rounded-[10px] text-base flex justify-center items-center font-bold text-white border border-solid border-black">
                     <img
@@ -160,4 +170,3 @@
         </div>
     </div>
 </div>
- 
