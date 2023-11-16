@@ -30,103 +30,14 @@
                     </tr>             
                 </thead>
                 <tbody>
-                    <tr class="text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    <tr class=" text-center">
-                        <td class="p-3">19DLIS0211_B_MatrixFlt.pdf</td>
-                        <td class="p-3">Fault Matrix List</td>
-                        <td class="p-3">PDF</td>
-                        <td class="p-3">10/02/2019</td>
-                        <td class="p-3">11/02/2019</td>
-                        <td class="p-3">222 Ko</td>
-                    </tr>
-                    
+                    <tr *ngFor="let document of documents" class="text-center">
+                        <td class="p-3">{{document.doc_last_version}}</td>
+                        <td class="p-3">{{document.doc_description}}</td>
+                        <td class="p-3">{{document.doc_type}}</td>
+                        <td class="p-3">{{ document.formattedDate}}</td>
+                        <td class="p-3">{{document.formattedDateUpdate}}</td>
+                        <td class="p-3">{{document.doc_size}} ko</td>
+                    </tr>      
                     <!-- Add more rows here -->
                 </tbody>
             </table>

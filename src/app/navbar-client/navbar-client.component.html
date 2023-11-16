@@ -1,32 +1,51 @@
 <nav class="font-inter relative flex justify-between items-center py-3 px-10 shadow-lg">
     <!-- Menu toggle -->
+
     <div class="flex items-center" (click)="toggleMenu()">
         <img src="assets/icons/menu.png" alt="" class="w-10 h-10 cursor-pointer" />
         <h2 class="ml-2 font-semibold text-lg cursor-pointer">Menu</h2>
     </div>
-  
+
     <!-- Mega Dropdown -->
-    <div *ngIf="isMenuVisible" class="font-bold absolute top-2 left-[88px] border border-solid border-[#E30039] bg-[#D9D9D9] z-10 py-2 shadow-lg">
-        <div class="px-2">
-            <h2 class="cursor-pointer" routerLink="/client" (click)="toggleMenu()">Onboarding</h2>
-        </div>   
-        <hr class="border border-dashed border-[#E30039]">
-        <div class="px-2 py-1">
-            <h2 class="cursor-pointer" (click)="toggleModalAndMenu()">Create ticket</h2>
-            <h2 class="cursor-pointer" routerLink="/client/statistique" (click)="toggleMenu()">{{ 'statisticsTickets' | translate }}</h2>
-            <h2 class="cursor-pointer" routerLink="/client/tickets" (click)="toggleMenu()">{{ 'listingTickets' | translate }}</h2>
-        </div>   
-        <hr class="border border-dashed border-[#E30039]">
-        <div class="px-2">
-            <h2 class="cursor-pointer" routerLink="/client/document" (click)="toggleMenu()">Documentation search</h2>
-            <h2 class="cursor-pointer" routerLink="/client/infos" (click)="toggleMenu()">Client infos</h2>
+    <div *ngIf="isMenuVisible" class="w-[330px] font-bold fixed bottom-0 left-0 bg-[#fff] z-50 py-[18px] shadow-lg h-screen" >
+        
+      
+        <div class="flex items-center px-4 py-3" (click)="toggleMenu()">
+            <img [src]="menuImgSrc" alt="" class="w-10 h-10 cursor-pointer" />
+            <h2 class="ml-2 font-semibold text-lg cursor-pointer">Menu</h2>
+        </div>
+        <hr class="border border-solid border-[#E30039]">
+        <div class="pt-4 px-4">
+            <button class="text-sm cursor-pointer py-2 flex items-center" routerLink="/client" (click)="toggleMenu()">
+                <img alt="Home icon" src="assets/icons/dash.png" class="w-6 h-6 mr-2" />
+                <h2 class="uppercase">{{ 'dashboard' | translate }}</h2>
+            </button>
+        </div>
+        <hr class="border border-solid border-[#E30039]">
+        <div class="px-4 py-2">
+            <h2 class="text-sm cursor-pointer uppercase py-2"  (click)="toggleModal()">{{ 'createTicket' | translate }}</h2>
+            <h2 class="text-sm cursor-pointer uppercase py-2"  routerLink="/client/statistique" (click)="toggleMenu()">{{
+                'statisticsTickets' | translate }}</h2>
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/client/tickets" (click)="toggleMenu()">{{
+                'listingTickets' | translate }}</h2>
+        </div>
+        <hr class="border border-solid border-[#E30039]">
+        <div class="px-4 py-2">
+            <!-- <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/technnav/document" (click)="toggleMenu()">{{ 'searchDocument' | translate }}</h2> -->
+            <h2 class="text-sm cursor-pointer uppercase py-2" routerLink="/client/document" (click)="toggleMenu()">{{
+                'Documentation search' | translate }}</h2>
+        </div>
+        <hr class="border border-solid border-[#E30039]">
+        <div class="px-4 py-2">
+            <h2 class="text-sm cursor-pointer uppercase py-2"routerLink="/client/infos" (click)="toggleMenu()">Client infos</h2>
+          
         </div>
     </div>
-  
+
     <div class="hidden md:block">
-        <h2 class="text-2xl font-bold">ONBOARDING</h2>
+        <h2 class="text-2xl font-bold">TICKET LISTING</h2>
     </div>
-  
+
     <div class="hidden md:flex justify-center">
         <button (click)="toggleModal()" class="flex justify-center font-semibold bg-[#E30039] py-3 px-10 text-white border border-solid border-black rounded-[10px]">
             <img
@@ -35,35 +54,30 @@
                 class="w-6 h-6 mr-10"
             />
             {{ 'newTicket' | translate }}
-        </button>          
+        </button>
     </div>
 
 </nav>
-  
+
 
 <!-- Mega Dropdown -->
 <div *ngIf="isModalVisible" class="font-bold absolute top-1/3 left-1/2 rounded-[20px] transform -translate-x-1/2 border border-solid border-[#E30039] bg-white z-10 py-2 shadow-lg">
     <div class="flex justify-between px-4 py-1">
         <div></div>
         <div>
-            <h1 class="font-bold mb-1">{{ 'newTicket' | translate }}</h1>
+            <h1 style="font-size: 32px;" class=".cr-er-un-ticket font-bold mb-1">{{ 'newTicket' | translate }}</h1>
         </div>
         <div>
-            <img
-                (click)="toggleModal()"
-                alt="Icon close"
-                src="assets/icons/close.png"
-                class="w-4 h-4 cursor-pointer"
-            />
+            <img style="width: 45px; height: 45px;" (click)="toggleModal()" alt="Icon close" src="assets/icons/close.png" class="w-4 h-4 cursor-pointer" />
         </div>
-    </div>   
+    </div>
     <div class="px-2">
         <hr class="px-2 border border-dashed border-gray-600">
-        <h2 class="text-sm text-center mt-4">{{ 'whichkindTicket' | translate }}</h2>
-    </div>   
-    <div class="flex justify-between px-6 py-8">
-        <button (click)="toggleModal()" class="rounded-[10px] mr-6 bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/client/create/prfs" >PRFS</button>
-        <button (click)="toggleModal()" class="rounded-[10px] mr-6 bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/client/create/prfm" >PRFM</button>
-        <button (click)="toggleModal()" class="rounded-[10px] bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/client/create/prma">PRMA</button>
+        <h2  class="label text-sm text-center mt-4"><p class="text-wrapper">Does your request require urgent intervention?</p></h2>
+    </div>
+    <div class="felex_it flex justify-between px-6 py-8">
+        <button (click)="toggleModal()" class="rectangle rounded-[10px] mr-6 bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/client/create/prfs">Yes</button>
+        <button (click)="toggleModal()" class="rectangle rounded-[10px] mr-6 bg-[#E30039] text-white font-bold shadow-lg py-4 px-6" routerLink="/client/create/prfs">No</button>
+    
     </div>
 </div>

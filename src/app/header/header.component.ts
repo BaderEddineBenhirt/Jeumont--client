@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,12 +6,13 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
   currentRoute!: string;
   isLanguageOverlayVisible: boolean = false;
-
+check:any;
 
   constructor(
     private router: Router,   
@@ -23,6 +24,10 @@ export class HeaderComponent {
         this.currentRoute = event.url;
       }
     });
+    this.shouldDisplayButtons();
+    this.check = "good";
+    console.log(this.check);
+
   }
 
   toggleLangage() {

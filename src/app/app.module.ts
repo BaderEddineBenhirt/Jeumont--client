@@ -61,14 +61,18 @@ import { OnCallPlanningComponent } from './on-call-planning/on-call-planning.com
 import { CalendrierComponent } from './calendrier/calendrier.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { DataService } from "./scheduler/data.service";
-
+import { TestComponent } from './test/test.component';
+import { OpenprfsComponent } from './openprfs/openprfs.component';
+import { OpenprfmComponent } from './openprfm/openprfm.component';
+import { OpenprmaComponent } from './openprma/openprma.component'; 
+import { DatePipe } from '@angular/common';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [
+  declarations: [  
     AppComponent,
     ClientComponent,
     TechnnavComponent,
@@ -113,6 +117,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     OnCallPlanningComponent,
     CalendrierComponent,
     SchedulerComponent,
+    TestComponent,
+    OpenprfsComponent,
+    OpenprfmComponent,
+    OpenprmaComponent,
   ],
   imports: [
     DayPilotModule,
@@ -139,6 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecurrenceEditorModule,
   ],
   providers: [
+    DatePipe,
     DataService,
     CookieService, 
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

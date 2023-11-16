@@ -33,39 +33,46 @@ import { ConfigUserComponent } from './config-user/config-user.component';
 import { ConfigCustomerComponent } from './config-customer/config-customer.component';
 import { ConfigPlanningComponent } from './config-planning/config-planning.component';
 import { CalendrierComponent } from './calendrier/calendrier.component';
+import { TestComponent } from './test/test.component';
+import { OpenprfsComponent } from './openprfs/openprfs.component';
+import { OpenprfmComponent } from './openprfm/openprfm.component';
+import { OpenprmaComponent } from './openprma/openprma.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
-    component: AuthLayoutComponent, 
-    canActivate: [AuthLoginGuard], 
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    canActivate: [AuthLoginGuard],
     children: [
       { path: '', component: LoginComponent },
-      { path: 'forget/password', component: ForgetPasswordComponent }, 
-    ]
-  }, 
+      { path: 'forget/password', component: ForgetPasswordComponent },
+    ],
+  },
   {
     path: 'client',
     canActivate: [AuthGuard], // AuthGuard pour la route parente
     data: { roles: [10, 11, 12] }, // Définir les rôles requis pour cette route
     component: ClientLayoutComponent,
     children: [
-      { path: '', component: ClientComponent },
+      { path: '', component: TestComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'create/prfs', component: CreatePrfsComponent },
-      { path: 'create/prfm', component: CreatePrfmComponent }, 
-      { path: 'create/prma', component: CreatePrmaComponent }, 
+      { path: 'create/prfm', component: CreatePrfmComponent },
+      { path: 'create/prma', component: CreatePrmaComponent },
+      { path: 'open/prfs/:asked_uuid', component:OpenprfsComponent},
+      { path: 'open/prfm/:asked_uuid', component: OpenprfmComponent },
+      { path: 'open/prma/:asked_uuid', component: OpenprmaComponent },
       { path: 'document', component: DocumentsComponent },
       { path: 'statistique', component: StatistiqueComponent },
       { path: 'tickets', component: TicketsListComponent },
       { path: 'infos', component: InfoComponent },
-    ]
+    ],
   },
 
-  { 
-    path: 'technnav',  
-    canActivate: [AuthGuard], 
-    data: { roles: [1, 2, 3, 4] }, 
+  {
+    path: 'technnav',
+    canActivate: [AuthGuard],
+    data: { roles: [1, 2, 3, 4] },
     component: AdminLayoutComponent,
     children: [
       { path: '', component: TechnnavComponent },
@@ -75,33 +82,33 @@ const routes: Routes = [
       { path: 'statistique', component: StatistiqueComponent },
       { path: 'tickets', component: TicketsListComponent },
       { path: 'create/prfs', component: CreatePrfsComponent },
-      { path: 'create/prfm', component: CreatePrfmComponent }, 
-      { path: 'create/prma', component: CreatePrmaComponent }, 
+      { path: 'create/prfm', component: CreatePrfmComponent },
+      { path: 'create/prma', component: CreatePrmaComponent },
       { path: 'update/prfs/:asked_uuid', component: UpdatePrfsComponent },
       { path: 'update/prfm/:asked_uuid', component: UpdatePrfmComponent },
       { path: 'update/prma/:asked_uuid', component: UpdatePrmaComponent },
       { path: 'calendrier', component: CalendrierComponent },
-      { 
-        path: 'config', 
+      {
+        path: 'config',
         component: ConfigComponent,
         children: [
-          { path: '', redirectTo: 'prfs', pathMatch: 'full' }, 
+          { path: '', redirectTo: 'prfs', pathMatch: 'full' },
           { path: 'prfs', component: ConfigPrfsComponent },
           { path: 'prfm', component: ConfigPrfmComponent },
           { path: 'prma', component: ConfigPrmaComponent },
-          { path: 'categories', component: ConfigCategorieComponent},
+          { path: 'categories', component: ConfigCategorieComponent },
           { path: 'users', component: ConfigUserComponent },
           { path: 'customers', component: ConfigCustomerComponent },
           { path: 'planning', component: ConfigPlanningComponent },
-        ] 
+        ],
       },
-    ]
+    ],
   },
   {
     path: 'unauthorized',
     component: UnauthorizedComponent,
   },
-  { path: '**', component: NotFoundComponent } 
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
