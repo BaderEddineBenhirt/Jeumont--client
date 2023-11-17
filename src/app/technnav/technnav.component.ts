@@ -122,6 +122,7 @@ export class TechnnavComponent implements OnInit {
     this.ticketsService.getAskedData(this.page, this.searchDescription, this.sortOption, this.typeFilter, this.statusFilter, this.client, this.selectedOptionSort).subscribe(
       (data) => {
         this.tickets = this.tickets.concat(data);
+        console.log(this.tickets);
         this.isLoading = false;
       },
       (error) => {

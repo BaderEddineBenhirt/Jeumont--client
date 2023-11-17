@@ -9,11 +9,11 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-update-prfs',
   templateUrl: './update-prfs.component.html',
-  styleUrls: ['./update-prfs.component.scss']
+  styleUrls: ['./update-prfs.component.scss'],
 })
-export class UpdatePrfsComponent implements OnInit {  
+export class UpdatePrfsComponent implements OnInit {
   selectedFiles: File[] = [];
-  text: string  = 'Your ticket has been successfully modified.';
+  text: string = 'Your ticket has been successfully modified.';
   askedUuid!: string | null;
   asked: any;
   askedToUpdate: any;
@@ -37,32 +37,29 @@ export class UpdatePrfsComponent implements OnInit {
   allStatus: any[] = [];
   isVisible: boolean = false;
   conversation: any;
-  effectsAsked: any[] = []; 
-  tagsAsked: any[] = []; 
+  effectsAsked: any[] = [];
+  tagsAsked: any[] = [];
   attachements: any[] = [];
   effect_id: number = 0;
   tag_id: number = 0;
-  
-  files: any[] = []
+  analysis: any;
+  files: any[] = [];
   maxFileCount: number = 10;
 
   @ViewChildren('messageDiv') messageDivs!: QueryList<ElementRef>;
 
-  
   constructor(
-    private router: Router,   
+    private router: Router,
     private route: ActivatedRoute,
-    private infosService: InfosService, 
+    private infosService: InfosService,
     private ticketsService: TicketsService,
     private tagsService: TagsService,
     private cookieService: CookieService,
-    private sharedTitleService: SharedTitleService,
+    private sharedTitleService: SharedTitleService
   ) {}
-  
-  
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.askedUuid = params.get('asked_uuid');
       if (this.askedUuid) {
         this.fetchLogsByAsked();
@@ -83,8 +80,7 @@ export class UpdatePrfsComponent implements OnInit {
           side_id: this.asked.Side.side_id,
           skill_id: this.asked.Skill.skill_id,
           level_id: this.asked.Level.level_id,
-        }
-        
+        };
       }
     });
     this.fetchEffectTypes();
@@ -98,59 +94,76 @@ export class UpdatePrfsComponent implements OnInit {
 
   private fetchStatus(): void {
     this.infosService.getStatuses().subscribe(
-      data => {
+      (data) => {
         this.allStatus = data;
       },
-      error => {
-        console.error('Erreur lors de la récupération des types d\'effet:', error);
+      (error) => {
+        console.error(
+          "Erreur lors de la récupération des types d'effet:",
+          error
+        );
       }
     );
   }
 
   private fetchEffectTypes(): void {
     this.infosService.getEffectTypes().subscribe(
-      data => {
+      (data) => {
         this.effectTypes = data;
       },
-      error => {
-        console.error('Erreur lors de la récupération des types d\'effet:', error);
+      (error) => {
+        console.error(
+          "Erreur lors de la récupération des types d'effet:",
+          error
+        );
       }
     );
   }
 
   private fetchTags(): void {
     this.tagsService.getTags().subscribe(
-      data => {
+      (data) => {
         this.tags = data;
       },
-      error => {
-        console.error('Erreur lors de la récupération des types d\'effet:', error);
+      (error) => {
+        console.error(
+          "Erreur lors de la récupération des types d'effet:",
+          error
+        );
       }
     );
   }
 
   private fetchAskedTags(): void {
-    if (this.askedUuid !== null) { // Vérifiez que customerUuid n'est pas null
+    if (this.askedUuid !== null) {
+      // Vérifiez que customerUuid n'est pas null
       this.infosService.getTagsByAsked(this.askedUuid).subscribe(
-        data => {
+        (data) => {
           this.tagsAsked = data;
         },
-        error => {
-          console.error('Erreur lors de la récupération des types d\'effet:', error);
+        (error) => {
+          console.error(
+            "Erreur lors de la récupération des types d'effet:",
+            error
+          );
         }
       );
     }
   }
 
   private getAttachements() {
-    if (this.askedUuid !== null) { // Vérifiez que customerUuid n'est pas null
+    if (this.askedUuid !== null) {
+      // Vérifiez que customerUuid n'est pas null
       this.ticketsService.getAttachements(this.askedUuid).subscribe(
-        data => {
+        (data) => {
           console.log(data);
           this.attachements = data;
         },
-        error => {
-          console.error('Erreur lors de la récupération des types d\'effet:', error);
+        (error) => {
+          console.error(
+            "Erreur lors de la récupération des types d'effet:",
+            error
+          );
         }
       );
     }
@@ -176,10 +189,10 @@ export class UpdatePrfsComponent implements OnInit {
 
   private fetchEffects(): void {
     this.infosService.getEffects().subscribe(
-      data => {
+      (data) => {
         this.effects = data;
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la récupération des niveaux:', error);
       }
     );
@@ -187,10 +200,10 @@ export class UpdatePrfsComponent implements OnInit {
 
   private fetchSides(): void {
     this.infosService.getSides().subscribe(
-      data => {
+      (data) => {
         this.sides = data;
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la récupération des côtés:', error);
       }
     );
@@ -198,10 +211,10 @@ export class UpdatePrfsComponent implements OnInit {
 
   private fetchSkills(): void {
     this.infosService.getSkills().subscribe(
-      data => {
+      (data) => {
         this.skills = data;
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la récupération des compétences:', error);
       }
     );
@@ -209,46 +222,58 @@ export class UpdatePrfsComponent implements OnInit {
 
   private fetchLevels(): void {
     this.infosService.getLevels().subscribe(
-      data => {
+      (data) => {
         this.levels = data;
       },
-      error => {
+      (error) => {
         console.error('Erreur lors de la récupération des niveaux:', error);
       }
     );
   }
 
   fetchEffectsByAsked(): void {
-    if (this.askedUuid !== null) { // Vérifiez que customerUuid n'est pas null
+    if (this.askedUuid !== null) {
+      // Vérifiez que customerUuid n'est pas null
       this.infosService.getEffectsByAsked(this.askedUuid).subscribe(
-        data => {
+        (data) => {
           this.effectsAsked = data;
         },
-        error => {
+        (error) => {
+          console.error('Error fetching asked details:', error);
+        }
+      );
+    }
+  }
+  letsee(){
+    console.log(this.askedToUpdate.asked_description);
+    this.asked.asked_description = this.askedToUpdate.asked_description;
+    this.asked.prfs_analyse = this.askedToUpdate.prfs_analyse;
+     this.asked.prfs_root_cause = this.askedToUpdate.prfs_root_cause;
+    this.asked.prfs_action_taken = this.askedToUpdate.prfs_action_taken;
+   
+     
+  }
+
+  fetchLogsByAsked(): void {
+    if (this.askedUuid !== null) {
+      // Vérifiez que customerUuid n'est pas null
+      this.infosService.getLogsByAsked(this.askedUuid).subscribe(
+        (data) => {
+          console.log(data);
+          this.logs = data;
+        },
+        (error) => {
           console.error('Error fetching asked details:', error);
         }
       );
     }
   }
 
-  fetchLogsByAsked(): void {
-    if (this.askedUuid !== null) { // Vérifiez que customerUuid n'est pas null
-      this.infosService.getLogsByAsked(this.askedUuid).subscribe(
-        data => {
-          console.log(data);
-          this.logs = data;
-        },
-        error => {
-          console.error('Error fetching asked details:', error);
-        }
-      );
-    }
-  }
-   
   fetchAskedData(): void {
-    if (this.askedUuid !== null) { // Vérifiez que customerUuid n'est pas null
+    if (this.askedUuid !== null) {
+      // Vérifiez que customerUuid n'est pas null
       this.ticketsService.getOneAskedPRFSData(this.askedUuid).subscribe(
-        data => {
+        (data) => {
           this.asked = data;
           this.askedToUpdate = {
             asked_description: data.asked_description,
@@ -263,11 +288,11 @@ export class UpdatePrfsComponent implements OnInit {
             status_id: data.Status.status_id,
             skill_id: data.Skill.skill_id,
             level_id: data.Level.level_id,
-          }
+          };
 
           this.sharedTitleService.changeTitle(data.asked_ref);
         },
-        error => {
+        (error) => {
           console.error('Error fetching asked details:', error);
         }
       );
@@ -275,27 +300,24 @@ export class UpdatePrfsComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.askedToUpdate);
-
-    this.ticketsService.updateAskedPRFS(this.askedToUpdate, this.asked.asked_uuid).subscribe(
-      response => {
-        this.openPopup();
-      
-
-        if (this.askedUuid) {
-          const user_uuid = this.cookieService.get('user_uuid');
-          this.uploadFile(this.askedUuid, user_uuid);
+    this.ticketsService
+      .updateAskedPRFS(this.askedToUpdate, this.asked.asked_uuid)
+      .subscribe(
+        (response) => {
+          this.openPopup();
+          if (this.askedUuid) {
+            const user_uuid = this.cookieService.get('user_uuid');
+            this.uploadFile(this.askedUuid, user_uuid);
+          }
+          setTimeout(() => {
+            this.router.navigate(['/technnav']);
+          }, 500);
+        },
+        (error) => {
+          console.error('Error update PRFS:', error);
         }
-        setTimeout(() => {
-          this.router.navigate(['/technnav']);
-        }, 4000); 
-      },
-      error => {
-        console.error('Error creating PRFS:', error);
-      }
-    );
+      );
   }
-
 
   toggleUpdateDescription() {
     this.updateDescription = !this.updateDescription;
@@ -334,14 +356,30 @@ export class UpdatePrfsComponent implements OnInit {
   }
 
   isImage(fileName: string): boolean {
-    const imageExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'tiff', 'tif', 'svg', 'webp', 'raw', 'ico', 'heic', 'heif', 'psd', 'ai'];
+    const imageExtensions = [
+      'jpeg',
+      'jpg',
+      'png',
+      'gif',
+      'bmp',
+      'tiff',
+      'tif',
+      'svg',
+      'webp',
+      'raw',
+      'ico',
+      'heic',
+      'heif',
+      'psd',
+      'ai',
+    ];
     const fileExtension = fileName.split('.').pop()?.toLowerCase(); // Get the file extension in lowercase
-  
+
     if (fileExtension !== undefined) {
       return imageExtensions.includes(fileExtension);
     }
 
-    return false; 
+    return false;
   }
 
   onDragOver(event: DragEvent) {
@@ -357,7 +395,10 @@ export class UpdatePrfsComponent implements OnInit {
 
   handleFiles(files: File[]) {
     for (const file of files) {
-      this.files.push({ name: file.name, size: this.formatFileSize(file.size) });
+      this.files.push({
+        name: file.name,
+        size: this.formatFileSize(file.size),
+      });
     }
   }
 
@@ -369,28 +410,28 @@ export class UpdatePrfsComponent implements OnInit {
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-  
+
     const droppedFiles = event.dataTransfer?.files;
-  
+
     if (droppedFiles && droppedFiles.length > 0) {
       for (let i = 0; i < droppedFiles.length; i++) {
         if (this.files.length < this.maxFileCount) {
           const file = droppedFiles[i];
-  
+
           // Utilisez l'URL.createObjectURL pour obtenir le chemin du fichier
           const filePath = URL.createObjectURL(file);
-  
+
           this.files.push({
             name: file.name,
-            path: filePath
+            path: filePath,
           });
         } else {
-          alert("files has been truncated to 10 files.");
+          alert('files has been truncated to 10 files.');
         }
       }
     }
   }
-  
+
   getFileNameWithoutExtension(fileName: string): string {
     const lastIndex = fileName.lastIndexOf('.');
     if (lastIndex !== -1) {
@@ -408,7 +449,7 @@ export class UpdatePrfsComponent implements OnInit {
     const fileName = pathSegments[pathSegments.length - 1];
 
     this.ticketsService.downloadAttachement(fileName).subscribe(
-      data => { 
+      (data) => {
         const blob = new Blob([data], { type: 'application/octet-stream' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -418,20 +459,26 @@ export class UpdatePrfsComponent implements OnInit {
         a.click();
         window.URL.revokeObjectURL(url);
       },
-      error => {
-        console.error('Erreur lors de la récupération des types d\'effet:', error);
+      (error) => {
+        console.error(
+          "Erreur lors de la récupération des types d'effet:",
+          error
+        );
       }
     );
   }
 
   deleteFile(attachementId: string) {
-    if ( this.askedUuid ) {
+    if (this.askedUuid) {
       this.ticketsService.removeAttachement(attachementId).subscribe(
-        data => { 
+        (data) => {
           this.getAttachements();
         },
-        error => {
-          console.error('Erreur lors de la récupération des types d\'effet:', error);
+        (error) => {
+          console.error(
+            "Erreur lors de la récupération des types d'effet:",
+            error
+          );
         }
       );
     } else {
@@ -444,19 +491,19 @@ export class UpdatePrfsComponent implements OnInit {
   }
 
   addTagToAsked() {
-    if (this.tag_id && this.askedUuid ) {
-      const data = { 
-        asked_uuid: this.askedUuid, 
-        tag_id: this.tag_id
-      }
-  
+    if (this.tag_id && this.askedUuid) {
+      const data = {
+        asked_uuid: this.askedUuid,
+        tag_id: this.tag_id,
+      };
+
       this.ticketsService.askedAddTag(data).subscribe(
-        response => {
+        (response) => {
           console.log(response);
           this.fetchAskedTags();
           this.tag_id = 0;
         },
-        error => {
+        (error) => {
           console.error('Error creating Conversation:', error);
         }
       );
@@ -465,13 +512,13 @@ export class UpdatePrfsComponent implements OnInit {
     }
   }
 
-  DeleteTagToAsked(tag_id : number) {
-    if (tag_id && this.askedUuid ) {
+  DeleteTagToAsked(tag_id: number) {
+    if (tag_id && this.askedUuid) {
       this.ticketsService.askedDeleteTag(tag_id, this.askedUuid).subscribe(
-        response => {
+        (response) => {
           this.fetchAskedTags();
         },
-        error => {
+        (error) => {
           console.error('Error creating Conversation:', error);
         }
       );
@@ -481,19 +528,19 @@ export class UpdatePrfsComponent implements OnInit {
   }
 
   addEventToAsked() {
-    if (this.effect_id && this.askedUuid ) {
-      const data = { 
-        asked_uuid: this.askedUuid, 
-        effect_id: this.effect_id
-      }
-  
+    if (this.effect_id && this.askedUuid) {
+      const data = {
+        asked_uuid: this.askedUuid,
+        effect_id: this.effect_id,
+      };
+
       this.ticketsService.askedAddEvent(data).subscribe(
-        response => {
+        (response) => {
           console.log(response);
           this.fetchEffectsByAsked();
           this.effect_id = 0;
         },
-        error => {
+        (error) => {
           console.error('Error creating Conversation:', error);
         }
       );
@@ -502,13 +549,13 @@ export class UpdatePrfsComponent implements OnInit {
     }
   }
 
-  DeleteEventToAsked(effect_id : number) {
-    if (effect_id && this.askedUuid ) {
+  DeleteEventToAsked(effect_id: number) {
+    if (effect_id && this.askedUuid) {
       this.ticketsService.askedDeleteEvent(effect_id, this.askedUuid).subscribe(
-        response => {
+        (response) => {
           this.fetchEffectsByAsked();
         },
-        error => {
+        (error) => {
           console.error('Error creating Conversation:', error);
         }
       );

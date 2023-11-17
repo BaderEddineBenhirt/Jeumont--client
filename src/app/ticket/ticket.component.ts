@@ -7,5 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class TicketComponent {
   @Input() data: any;
+
+  ngOnInit(){
+    console.log(this.data);
+  }
+  
 }
 

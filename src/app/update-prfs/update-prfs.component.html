@@ -208,6 +208,7 @@
             </div> 
         </div>
         <div class="py-4">
+
             <div class="mb-4">
                 <button class="text-base font-bold flex items-center" (click)="toggleUpdateDescription()">
                     Description
@@ -217,8 +218,9 @@
                         [ngClass]="updateDescription ? 'bg-[#E30039] p-2 rounded-md w-8 h-8 ml-2':'bg-[#F5F5F5] p-2 rounded-md w-8 h-8 ml-2'"
                     >
                 </button>
-                <p *ngIf="!updateDescription"  class="bg-[#F5F5F5] w-[98%] p-2 mx-2 h-[60px] overflow-y-scroll custom-scrollbar-gray my-2">{{asked.asked_description}}</p>
-                <input *ngIf="updateDescription"  [(ngModel)]="askedToUpdate.asked_description" class="bg-[#F5F5F5] w-[98%] px-2 mx-2 h-[60px] my-2" />
+                <p *ngIf="!updateDescription"  class="bg-[#F5F5F5] w-[98%] p-2 mx-2 h-[60px] overflow-y-scroll custom-scrollbar-gray my-2">{{askedToUpdate.asked_description}}</p>
+                <input *ngIf="updateDescription" type="text" [(ngModel)]="askedToUpdate.asked_description"
+                    class="bg-[#F5F5F5] w-[98%]  px-2 mx-2 h-[50px] my-2" />
             </div>
             <div class="mb-4">
                 <button class="text-base font-bold flex items-center" (click)="toggleUpdateAnalysis()">
@@ -229,11 +231,12 @@
                         [ngClass]="updateAnalysis ? 'bg-[#E30039] p-2 rounded-md w-8 h-8 ml-2':'bg-[#F5F5F5] p-2 rounded-md w-8 h-8 ml-2'"
                     >
                 </button>
-                <p *ngIf="!updateAnalysis" class="bg-[#E30039] w-[98%] text-white p-2 mx-2 h-[50px] overflow-y-scroll custom-scrollbar my-2">{{asked.prfs_analyse}}</p>
+                <p *ngIf="!updateAnalysis" class="bg-[#E30039] w-[98%] text-white p-2 mx-2 h-[50px] overflow-y-scroll custom-scrollbar my-2">{{askedToUpdate.prfs_analyse}}</p>
                 <input *ngIf="updateAnalysis" type="text" [(ngModel)]="askedToUpdate.prfs_analyse" class="bg-[#E30039] w-[98%] text-white px-2 mx-2 h-[50px] my-2"/>
 
             </div>
             <div class="grid grid-cols-2 mb-4">
+               
                 <div>
                     <button class="text-base font-bold flex items-center" (click)="toggleUpdateRootCause()">
                         Root Cause
@@ -243,7 +246,9 @@
                             [ngClass]="updateRootCause ? 'bg-[#E30039] p-2 rounded-md w-8 h-8 ml-2':'bg-[#F5F5F5] p-2 rounded-md w-8 h-8 ml-2'"
                         >
                     </button>
-                    <p *ngIf="!updateRootCause" class="bg-[#E30039] w-[98%] text-white p-2 mx-2 h-[40px] overflow-y-scroll custom-scrollbar my-2">{{asked.prfs_root_cause}}</p>
+                    <p *ngIf="!updateRootCause" class="bg-[#E30039] w-[98%] text-white p-2 mx-2 h-[40px] overflow-y-scroll custom-scrollbar my-2">
+                        {{askedToUpdate.prfs_root_cause}}
+                    </p>
                     <input *ngIf="updateRootCause" type="text" [(ngModel)]="askedToUpdate.prfs_root_cause" class="bg-[#E30039] w-[98%] text-white px-2 mx-2 h-[40px] my-2"/>
 
                 </div>
@@ -256,7 +261,7 @@
                             [ngClass]="updateActionTaken ? 'bg-[#E30039] p-2 rounded-md w-8 h-8 ml-2':'bg-[#F5F5F5] p-2 rounded-md w-8 h-8 ml-2'"
                         >
                     </button>
-                    <p *ngIf="!updateActionTaken" class="bg-[#E30039] w-[98%] text-white p-2 mx-2 h-[40px] overflow-y-scroll custom-scrollbar my-2">{{asked.prfs_action_taken}}</p>
+                    <p *ngIf="!updateActionTaken" class="bg-[#E30039] w-[98%] text-white p-2 mx-2 h-[40px] overflow-y-scroll custom-scrollbar my-2">{{askedToUpdate.prfs_action_taken}}</p>
                     <input *ngIf="updateActionTaken" type="text" [(ngModel)]="askedToUpdate.prfs_action_taken" class="bg-[#E30039] w-[98%] text-white px-2 mx-2 h-[40px] my-2"/>
                 </div>
             </div>

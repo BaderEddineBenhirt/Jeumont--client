@@ -264,6 +264,7 @@ export class CreatePrfsComponent implements OnInit {
           asked_uuid: response.asked_uuid
         }  
 
+
         for (const item of this.effectsAdded) {
           const dataToEvent = {
             effect_id: Number(item.effect_id), 
